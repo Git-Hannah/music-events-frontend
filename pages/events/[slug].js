@@ -7,3 +7,5 @@ export default function EventPage() {
         </Layout>
     );
 }
+
+// [in eckigen Klammern] wird der Inhalt dynamisch generiert
