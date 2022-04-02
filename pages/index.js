@@ -1,4 +1,6 @@
 import Layout from "@/components/Layout";
+import EventItem from "@/components/EventItem";
+import Link from "next/link";
 import { API_URL } from "@/config/index";
 
 export default function HomePage({ events }) {
@@ -9,8 +11,14 @@ export default function HomePage({ events }) {
             {events.length === 0 && <h3>No events to show</h3>}
 
             {events.map((evt) => (
-                <h3 key={evt.id}>{evt.name}</h3>
+                <EventItem key={evt.id} evt={evt} />
             ))}
+
+            {events.length > 0 && (
+                <Link href="/events">
+                    <a className="btn-secondary">View All Events</a>
+                </Link>
+            )}
         </Layout>
     );
 }
@@ -25,7 +33,7 @@ export async function getStaticProps() {
 
     return {
         // This is running server side, so we pass in here events...*
-        props: { events },
+        props: { events: events.slice(0, 3) },
         revalidate: 1, //revalidates every second to get possible event updates
     };
 }
